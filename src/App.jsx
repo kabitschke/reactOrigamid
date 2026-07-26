@@ -25,9 +25,33 @@ const mario = {
   ativa: false,
 };
 
+const frutas = ['Pêssego', 'Jabuticaba','Laranja', 'Maçã', 'Damasco', 'Goiaba', 'Banana', 'Uva', 'Ameixa'];
+
 const App = () => {
   const dados = luana;
 
-  return <div></div>;
+  const total = dados.compras.reduce((acc, item)=> {   
+          const precoNumero = Number(item.preco.replace(/\D/g, ''));      
+          return acc + precoNumero;
+                },0);
+
+  return (
+    <div>
+      <h1>Exercício</h1>
+
+      <div>Nome: {dados.cliente}</div>
+      <div>Idade: {dados.idade}</div>
+      <div>
+        Situação: <span style={dados.ativa ? {color: 'green'} : {color: 'red'}}>{dados.ativa ? 'Ativa' : 'Inativa'}</span>
+      </div>   
+    <div>
+      Total gasto: R$ {total} {total > 10000 ? 'Execedeu o teto de gastos' : ''}   
+    </div>  
+
+
+    </div>
+  );
+
 };
 
+export default App;
