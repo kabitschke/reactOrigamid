@@ -1,27 +1,11 @@
-import React from "react";
-
+import React from 'react';
+import { Button1 } from './components/Exercicio3';
 
 const App = () => {
-  const [ativo, setAtivo] = React.useState(false);
-
-
-
-
-
-
-  function handleClick() {
-    setAtivo(!ativo);
-
-    console.log(ativo);
-  }
-  return <button onClick={handleClick}>{ativo ? 'Ativo' : 'Inativo'}</button>
-
-
   return (
     <div>
-
+      <Button1 />
     </div>
-
   );
 };
 
