@@ -1,4 +1,5 @@
 import React from 'react';
+import { getProduct } from '../Hooks/useFavorites';
 export const Product = () => {
   // Quando o usuário clicar em um dos botões, faça um fetch do produto clicado utilizando a api abaixo
   // https://ranekapi.origamid.dev/json/api/produto/notebook
@@ -6,7 +7,7 @@ export const Product = () => {
   // Mostre o nome e preço na tela (separe essa informação em um componente Produto.js)
   // Defina o produto clicado como uma preferência do usuário no localStorage
   // Quando o usuário entrar no site, se existe um produto no localStorage, faça o fetch do mesmo
-  // key produto
+
 
   //   // Salva um dado no navegador
   // localStorage.setItem("usuario", "João Silva");
@@ -20,6 +21,9 @@ export const Product = () => {
 
   const [result, setResult] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
+  const [productStorage, setProductStorage] = React.useState(null);
+
+
 
   const handleClick = async (produto) => {
     setLoading(true);
@@ -27,7 +31,18 @@ export const Product = () => {
     localStorage.setItem('produto', produto);
     setResult(data);
     setLoading(false);
-  };
+    setProductStorage(produto);
+  }
+
+
+  React.useEffect(() => {
+    const stored = localStorage.getItem("produto");
+    if (stored) {
+      setProductStorage(stored);
+      handleClick(productStorage);
+    }
+
+  }, [productStorage]);
 
   // React.useEffect(() => {
   //   localStorage.setItem('produto', JSON.stringify(produto));
@@ -42,6 +57,10 @@ export const Product = () => {
 
   return (
     <div>
+      {
+        productStorage && <h1>Preferências: {productStorage}</h1>
+      }
+
       <div style={{ display: 'flex', gap: '20px' }}>
         <button onClick={() => handleClick('notebook')}>notebook</button>
         <button onClick={() => handleClick('smartphone')}>smartphone</button>
