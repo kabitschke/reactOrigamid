@@ -10,10 +10,21 @@ import { GlobalContext } from './GlobalContext';
 
 export const Exercicio5 = () => {
   const global = React.useContext(GlobalContext);
-  //<button onClick={() => global.adicionarUm()}>{global.contar}</button>
+
+
+  console.log(global.result);
+
   return (
     <div>
       <h3>Dados da API</h3>
+
+      <div >{
+        global.result &&
+        global.result.map((item) => (
+          <div key={item.id}>{item.nome}</div>
+        ))
+      }</div>
+
     </div>
   );
 };
