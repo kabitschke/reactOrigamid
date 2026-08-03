@@ -1,12 +1,10 @@
 import React from 'react';
-import { Start } from './components/Ex5/Start';
-
-
+import { Formulario } from './components/Formulario';
 
 const App = () => {
   return (
     <div>
-      <Start />
+      <Formulario />
     </div>
   );
 };
