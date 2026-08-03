@@ -12,7 +12,7 @@ export const Exercicio5 = () => {
   const global = React.useContext(GlobalContext);
 
 
-  console.log(global.result);
+
 
   return (
     <div>
@@ -24,6 +24,8 @@ export const Exercicio5 = () => {
           <div key={item.id}>{item.nome}</div>
         ))
       }</div>
+
+      <button onClick={() => global.limparDados()}>Limpar Dados</button>
 
     </div>
   );

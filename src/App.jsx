@@ -1,14 +1,12 @@
 import React from 'react';
+import { Start } from './components/Ex5/Start';
 
-import { Exercicio5 } from './components/Exercicio5';
-import { GlobalStorage } from './components/GlobalContext';
+
 
 const App = () => {
   return (
     <div>
-      <GlobalStorage>
-        <Exercicio5 />
-      </GlobalStorage>
+      <Start />
     </div>
   );
 };
