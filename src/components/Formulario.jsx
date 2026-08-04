@@ -59,14 +59,35 @@ export const Formulario = () => {
       return {
         ...acc,
         [field.id]: '',
+        //[field.id]: '' cria chave dinâmica (nome, email, etc) : os dois pontos servem para ligar a chave ao valor que inicialmente será vazio ''
       };
     }, {}),
   );
+
+  //Exemplo chave dinâmica
+  const chave = 'cidade';
+
+  const obj = {
+    [chave]: 'São Paulo',
+  };
+
+  //Aqui o JavaScript entende:
+  //“pega o valor da variável campo e usa como nome da chave”
+  //{cidade: 'São Paulo'}
+
+  const campo = 'email';
+
+  const teste = {
+    [campo]: 'teste@email.com',
+  };
+  //{email: 'teste@email.com'}
+
   const [response, setResponse] = React.useState(null);
 
   function handleChange({ target }) {
     const { id, value } = target;
     setForm({ ...form, [id]: value });
+    //[id]: value cria chave dinâmica (nome, email, etc) : os dois pontos servem para ligar a chave ao valor que será Value o que foi digitado no campo input
   }
 
   function handleSubmit(event) {
