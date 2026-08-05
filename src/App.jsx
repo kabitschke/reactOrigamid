@@ -1,10 +1,16 @@
 import React from 'react';
-import { Formulario } from './components/Formulario';
+import { CheckBox } from './components/CheckBox';
+
+
 
 const App = () => {
+
+
+
   return (
     <div>
-      <Formulario />
+      <h1>Vite</h1>
+      <CheckBox />
     </div>
   );
 };
