@@ -7,6 +7,8 @@ const App = () => {
       <h1>Quiz</h1>
 
       <Quiz />
+
+
     </div>
   );
 };

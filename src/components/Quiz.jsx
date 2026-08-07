@@ -36,20 +36,92 @@ const perguntas = [
 ];
 
 export const Quiz = () => {
+  const [count, setCount] = React.useState(0);
+  const [resposta, setResposta] = React.useState({});
+  const [checado, setChecado] = React.useState(false);
+  const [finish, setFinish] = React.useState(false);
+
+  const meuArray = new Array(perguntas.length);
+
+
+
+
+
+
+  const nextQuestion = () => {
+    // if (count === perguntas.length - 1 && checado) {
+    //   setFinish(true);
+    // }
+    if (checado === false) {
+      return
+    }
+
+
+
+    setTimeout(() => {
+      if (count < perguntas.length - 1) {
+        setCount(count + 1);
+        setChecado(!checado);
+      } else {
+
+        setFinish(true);
+      }
+
+    }, 1000);
+
+
+  }
+
+  console.log('fim:', finish, 'chec:', checado, 'count', count, 'res', resposta);
+  const handleChange = (e) => {
+    setResposta({ ...resposta, [count]: e.target.value, })
+    setChecado(e.target.checked);
+  }
   return (
     <div>
-      <div>
-        <h4>{perguntas[0].pergunta}</h4>
+      {
+        !finish &&
+
+
         <div>
-          {perguntas[0].options.map((item) => (
-            <label key={item}>
-              <input type="radio" value={item} />
-              {item}
-            </label>
+          <h4>{perguntas[count].pergunta}</h4>
+          {perguntas[count].options.map((item) => (
+            <div key={item}>
+              <label style={{ display: 'flex', gap: '8px', cursor: 'pointer' }}>
+                <input
+                  type="radio"
+                  value={item}
+                  checked={resposta[count] === item}
+                  onChange={(e) => handleChange(e)}
+                  style={{ width: '12px', cursor: 'pointer' }}
+                />
+                {item}
+              </label>
+            </div>
           ))}
+          <button onClick={() => nextQuestion()}>Próxima</button>
+
         </div>
-        <button>Próxima</button>
-      </div>
+
+
+      }
+      {
+        finish &&
+        <div>
+          <h4>Resultado</h4>
+
+
+          {
+            resposta[1]
+          }
+          {
+            perguntas[1].resposta
+          }
+
+
+        </div>
+
+      }
     </div>
   );
 };
