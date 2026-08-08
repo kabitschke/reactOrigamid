@@ -40,49 +40,35 @@ export const Quiz = () => {
   const [resposta, setResposta] = React.useState({});
   const [checado, setChecado] = React.useState(false);
   const [finish, setFinish] = React.useState(false);
-
-  const meuArray = new Array(perguntas.length);
-
-
-
-
-
+  const [aa, setAA] = React.useState([]);
 
   const nextQuestion = () => {
-    // if (count === perguntas.length - 1 && checado) {
-    //   setFinish(true);
-    // }
     if (checado === false) {
-      return
+      return;
     }
-
-
 
     setTimeout(() => {
       if (count < perguntas.length - 1) {
         setCount(count + 1);
         setChecado(!checado);
       } else {
-
         setFinish(true);
       }
-
     }, 1000);
+  };
 
-
-  }
-
-  console.log('fim:', finish, 'chec:', checado, 'count', count, 'res', resposta);
   const handleChange = (e) => {
-    setResposta({ ...resposta, [count]: e.target.value, })
+    setResposta({ ...resposta, [count]: e.target.value });
     setChecado(e.target.checked);
-  }
+  };
+
+  const result = perguntas.reduce((acc, item, i) => {
+    return acc + (resposta[i] === item.resposta ? 1 : 0);
+  }, 0);
+
   return (
     <div>
-      {
-        !finish &&
-
-
+      {!finish && (
         <div>
           <h4>{perguntas[count].pergunta}</h4>
           {perguntas[count].options.map((item) => (
@@ -100,28 +86,14 @@ export const Quiz = () => {
             </div>
           ))}
           <button onClick={() => nextQuestion()}>Próxima</button>
-
         </div>
-
-
-      }
-      {
-        finish &&
+      )}
+      {finish && (
         <div>
           <h4>Resultado</h4>
-
-
-          {
-            resposta[1]
-          }
-          {
-            perguntas[1].resposta
-          }
-
-
+          Você acertou {result} de {perguntas.length}
         </div>
-
-      }
+      )}
     </div>
   );
 };
