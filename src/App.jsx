@@ -1,13 +1,29 @@
 import React from 'react';
-import { Quiz } from './components/Quiz';
+import { Slide } from './components/Slide';
+
+
+
 
 const App = () => {
+
+  const slides = [
+    {
+      id: "slide1",
+      text: 'Slide1',
+    },
+    {
+      id: "slide2",
+      text: 'Slide2',
+    },
+    {
+      id: "slide3",
+      text: 'Slide3',
+    }
+  ]
   return (
     <div>
-      <h1>Quiz</h1>
 
-      <Quiz />
-
+      <Slide slides={slides} />
 
     </div>
   );

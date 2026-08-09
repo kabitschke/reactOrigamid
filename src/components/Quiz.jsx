@@ -40,7 +40,7 @@ export const Quiz = () => {
   const [resposta, setResposta] = React.useState({});
   const [checado, setChecado] = React.useState(false);
   const [finish, setFinish] = React.useState(false);
-  const [aa, setAA] = React.useState([]);
+
 
   const nextQuestion = () => {
     if (checado === false) {
