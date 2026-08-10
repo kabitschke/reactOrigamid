@@ -5,10 +5,11 @@ import useForm from './Hooks/useForm';
 const App = () => {
   const cep = useForm('cep');
   const email = useForm('email');
+  const cpf = useForm('cpf');
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (cep.validate() && email.validate()) {
+    if (cep.validate() && email.validate() && cpf.validate()) {
       console.log('Enviar');
     } else {
       console.log('Não enviar');
@@ -31,6 +32,14 @@ const App = () => {
         type="text"
         placeholder="fulano@gmail.com"
         {...email}
+      />
+
+      <Input
+        label="CPF"
+        id="cpf"
+        type="text"
+        placeholder="123.456.789-10"
+        {...cpf}
       />
       <button>Enviar</button>
     </form>

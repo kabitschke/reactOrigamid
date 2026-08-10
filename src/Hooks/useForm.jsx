@@ -10,11 +10,18 @@ const types = {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     message: 'Email inválido',
   },
+  cpf: {
+    regex: /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/,
+    message: 'Cpf inválido',
+  },
 };
 
+//validação de cpf https://souforce.cloud/regra-de-validacao-para-cpf-e-cnpj-no-salesforce/
 const useForm = (type) => {
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(null);
+
+  //Type === email, cep, nome ...
 
   function validate(value) {
     if (type === false) return true;
@@ -22,7 +29,7 @@ const useForm = (type) => {
       setError('Preencha um valor');
       return false;
     } else if (types[type] && !types[type].regex.test(value)) {
-      setError(types[type].message);
+      setError(types[type].message); //Mensagem de erro
       return false;
     } else {
       setError(null);
