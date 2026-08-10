@@ -1,31 +1,39 @@
 import React from 'react';
-import { Slide } from './components/Slide';
-
-
-
+import Input from './components/CamposForm/Input';
+import useForm from './Hooks/useForm';
 
 const App = () => {
+  const cep = useForm('cep');
+  const email = useForm('email');
 
-  const slides = [
-    {
-      id: "slide1",
-      text: 'Slide1',
-    },
-    {
-      id: "slide2",
-      text: 'Slide2',
-    },
-    {
-      id: "slide3",
-      text: 'Slide3',
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (cep.validate() && email.validate()) {
+      console.log('Enviar');
+    } else {
+      console.log('Não enviar');
     }
-  ]
+  }
+
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
+      <Input
+        label="CEP"
+        id="cep"
+        type="text"
+        placeholder="00000-000"
+        {...cep}
+      />
 
-      <Slide slides={slides} />
-
-    </div>
+      <Input
+        label="Email"
+        id="email"
+        type="text"
+        placeholder="fulano@gmail.com"
+        {...email}
+      />
+      <button>Enviar</button>
+    </form>
   );
 };
 
