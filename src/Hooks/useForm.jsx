@@ -6,7 +6,7 @@ const types = {
     message: 'Cep inválido',
   },
   email: {
-    regex: /^(([^<>()[]\\.,;:\s@"]+(.[^<>()[]\\.,;:\s@"]+)\*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/,
+    regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     message: 'Email inválido',
   },
   cpf: {
@@ -20,44 +20,38 @@ const useForm = (type) => {
   const [error, setError] = React.useState(null);
 
   //validação de cpf https://souforce.cloud/regra-de-validacao-para-cpf-e-cnpj-no-salesforce/
-  const digits =
-    type === 'cpf'
-      ? value.replace(/\D/g, '').split('').map(Number)
-      : [];
 
+  function validate(value) {
+    if (type === false) return true;
 
+    if (value.length === 0) {
+      setError('Preencha um valor');
+      return false;
+    }
 
-function validate(value) {
-  if (type === false) return true;
+    if (type === 'cpf') {
+      const numbers = value
+        .replace(/\D/g, '')
+        .split('')
+        .map(Number);
 
-  if (value.length === 0) {
-    setError('Preencha um valor');
-    return false;
-  }
+      if (numbers.length !== 11 || !validateCpf(numbers)) {
+        setError('CPF inválido');
+        return false;
+      }
 
-  if (type === 'cpf') {
-    const numbers = value
-      .replace(/\D/g, '')
-      .split('')
-      .map(Number);
+      setError(null);
+      return true;
+    }
 
-    if (numbers.length !== 11 || !validateCpf(numbers)) {
-      setError('CPF inválido');
+    if (types[type] && !types[type].regex.test(value)) {
+      setError(types[type].message);
       return false;
     }
 
     setError(null);
     return true;
   }
-
-  if (types[type] && !types[type].regex.test(value)) {
-    setError(types[type].message);
-    return false;
-  }
-
-  setError(null);
-  return true;
-}
 
   function onChange({ target }) {
     if (error) validate(target.value);
@@ -68,7 +62,6 @@ function validate(value) {
   return {
     value,
     setValue,
-    digits,
     error,
     onChange,
     onBlur: () => validate(value),
@@ -78,8 +71,10 @@ function validate(value) {
 
 export default useForm;
 
- const validateCpf = (number) => {
+const validateCpf = (number) => {
   const cpf = [...number];
+
+
 
   // Os dois últimos números são os dígitos informados
   const digit1 = cpf[9];
@@ -98,7 +93,9 @@ export default useForm;
   }
 
   const resto = total % 11;
+
   const check1 = resto < 2 ? 0 : 11 - resto;
+
 
   // Segundo dígito
   const base2 = [...base, check1];
