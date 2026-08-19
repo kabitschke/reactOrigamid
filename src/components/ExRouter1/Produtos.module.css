@@ -18,3 +18,18 @@
 .title {
     font-weight: bold;
 }
+
+.areaBtn {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.Btn {
+    background-color: #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: .8rem;
+    cursor: pointer;
+
+}

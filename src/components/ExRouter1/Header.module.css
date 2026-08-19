@@ -1,0 +1,26 @@
+.header ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.link {
+    background-color: #878585;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+
+
+.header a {
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.header :global(.active) {
+
+    background: #FFF;
+}
