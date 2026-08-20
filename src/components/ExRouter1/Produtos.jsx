@@ -1,7 +1,7 @@
 import React from "react";
 import { getProduct, getProductAll } from "../../Hooks/useFetch";
 import styles from './Produtos.module.css';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 
 // Utilize a API abaixo para puxar a lista de produto
@@ -10,14 +10,8 @@ import { useParams } from "react-router-dom";
 // https://ranekapi.origamid.dev/json/api/produto/notebook
 
 const Produto = () => {
-
-    const params = useParams();
-
-
-
     const [produtos, setProdutos] = React.useState(null);
-    const [produto, setProduto] = React.useState(null);
-    const [loading, setLoading] = React.useState(false);
+    
 
     React.useEffect(() => {
         Produtos();
@@ -29,40 +23,18 @@ const Produto = () => {
         setProdutos(data);
     };
 
-    const handleClick = async (id) => {
-        setLoading(true);
-        const data = await getProduct(id);
-        setProduto(data);
-        setLoading(false);
-    }
-
-
     return (
-        <div className={styles.container}>
-            {
-                produto ? (
-                    <div>
-                        <img src={produto.fotos[0].src} alt={produto.fotos[0].titulo} />
-                        <div className={styles.title}>{produto.nome}</div>
-                        <div>{produto.preco}</div>
-                    </div>
+        <div className={styles.container}>      
 
-                ) : (
-
-                    <div className={styles.grid}>
+                    <div className={`${styles.grid} animeLeft`}>
                         {produtos && produtos.map((item) => (
-                            <div key={item.id} className={styles.item} onClick={() => handleClick(item.id)}>
+                            <Link key={item.id} className={styles.item} to={`produto/${item.id}`}>
                                 <img src={item.fotos[0].src} alt={item.fotos[0].titulo} />
                                 <div className={styles.title}>{item.nome}</div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
-                )
-            }
-
-
-
-
+                    
         </div>
     );
 }
