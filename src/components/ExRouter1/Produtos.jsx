@@ -2,6 +2,7 @@ import React from "react";
 import { getProduct, getProductAll } from "../../Hooks/useFetch";
 import styles from './Produtos.module.css';
 import { Link, useParams } from "react-router-dom";
+import Head from './Head';
 
 
 // Utilize a API abaixo para puxar a lista de produto
@@ -11,7 +12,7 @@ import { Link, useParams } from "react-router-dom";
 
 const Produto = () => {
     const [produtos, setProdutos] = React.useState(null);
-    
+
 
     React.useEffect(() => {
         Produtos();
@@ -24,17 +25,18 @@ const Produto = () => {
     };
 
     return (
-        <div className={styles.container}>      
+        <div className={styles.container}>
+            <Head title={`Produtos | Eletrônicos`} description='Os melhores eletrônicos do Brasil você só encontra aqui.' />
 
-                    <div className={`${styles.grid} animeLeft`}>
-                        {produtos && produtos.map((item) => (
-                            <Link key={item.id} className={styles.item} to={`produto/${item.id}`}>
-                                <img src={item.fotos[0].src} alt={item.fotos[0].titulo} />
-                                <div className={styles.title}>{item.nome}</div>
-                            </Link>
-                        ))}
-                    </div>
-                    
+            <div className={`${styles.grid} animeLeft`}>
+                {produtos && produtos.map((item) => (
+                    <Link key={item.id} className={styles.item} to={`produto/${item.id}`}>
+                        <img src={item.fotos[0].src} alt={item.fotos[0].titulo} />
+                        <div className={styles.title}>{item.nome}</div>
+                    </Link>
+                ))}
+            </div>
+
         </div>
     );
 }
